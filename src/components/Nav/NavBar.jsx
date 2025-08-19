@@ -21,6 +21,7 @@ function NavBar({ isLoggedIn, handleLogout }) {
                             <>
                                 <Nav.Link as={Link} to="/upload">Upload</Nav.Link>
                                 <Nav.Link as={Link} to="/qa">Ask</Nav.Link>
+                                <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
                                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                             </>
                         )}

@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/Nav/NavBar.jsx";
 import HomePage from "./pages/Home/HomePage.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import UserDashboard from "./components/Dashboard/UserDashboard.jsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
@@ -27,6 +28,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 {isLoggedIn && <Route path="/upload" element={<UploadDocument />} />}
                 {isLoggedIn && <Route path="/qa" element={<AskQuestion />} />}
+                {isLoggedIn && <Route path="/dashboard" element={<UserDashboard />} />}
             </Routes>
             <Footer/>
         </BrowserRouter>
