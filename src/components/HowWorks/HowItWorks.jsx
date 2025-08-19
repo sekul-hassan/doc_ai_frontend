@@ -13,22 +13,22 @@ function HowItWorks() {
                 <Row className="mt-5">
                     <Col md={4} className="step-col">
                         <div className="step-circle">1</div>
-                        <h4 className="step-title">Upload Document</h4>
-                        <p className="step-desc">
+                        <h4 className="subtitle text-dark">Upload Document</h4>
+                        <p className="description">
                             Upload your PDF, Word, or text files quickly and securely.
                         </p>
                     </Col>
                     <Col md={4} className="step-col">
                         <div className="step-circle">2</div>
-                        <h4 className="step-title">Ask Questions</h4>
-                        <p className="step-desc">
+                        <h4 className="subtitle text-dark">Ask Questions</h4>
+                        <p className="description">
                             Type your questions about the document and let AI find answers instantly.
                         </p>
                     </Col>
                     <Col md={4} className="step-col">
                         <div className="step-circle">3</div>
-                        <h4 className="step-title">Get Results</h4>
-                        <p className="step-desc">
+                        <h4 className="subtitle text-dark">Get Results</h4>
+                        <p className="description">
                             Receive clear, concise, and context-appropriate responses from your content.
                         </p>
                     </Col>

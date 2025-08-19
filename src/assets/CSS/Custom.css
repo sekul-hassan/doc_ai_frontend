@@ -36,6 +36,7 @@
     line-height: 1.6;
     color: white;
     font-family: Montserrat, serif;
+    font-weight: 500;
 }
 
 .hero-buttons .hero-btn {
@@ -51,4 +52,14 @@
 
 .navBody{
     background-color: var(--color1);
+}
+
+.navBrand{
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Montserrat, serif;
+}
+.navBrand:hover{
+   transition: 0.4s;
 }

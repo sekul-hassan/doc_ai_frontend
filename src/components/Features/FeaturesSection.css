@@ -8,24 +8,42 @@
 
 .features-title {
     font-size: 2.5rem;
-    font-weight: 700;
     margin-bottom: 0.5rem;
     color: #0d6efd;
+    text-transform: uppercase;
+    font-family: Raleway, serif;
+    font-weight: 700;
 }
 
 .features-subtitle {
     font-size: 1.2rem;
     margin-bottom: 3rem;
-    color: #555;
+    color: rgba(0,0,0,0.8);
+    font-family: Montserrat, serif;
+    font-weight: 700;
 }
 
 .feature-card {
     border: none;
     padding: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .feature-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.description{
+    font-size: 1rem;
+    color: rgba(0,0,0,0.8);
+    font-family: Raleway, serif;
+    font-weight: 500;
 }

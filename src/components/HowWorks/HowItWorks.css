@@ -8,15 +8,19 @@
 
 .works-title {
     font-size: 2.5rem;
-    font-weight: 700;
     margin-bottom: 0.5rem;
     color: #0d6efd;
+    text-transform: uppercase;
+    font-family: Raleway, serif;
+    font-weight: 700;
 }
 
 .works-subtitle {
     font-size: 1.2rem;
     margin-bottom: 3rem;
-    color: #555;
+    color: rgba(0,0,0,0.8);
+    font-family: Montserrat, serif;
+    font-weight: 700;
 }
 
 .step-col {
@@ -41,11 +45,4 @@
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 10px;
-}
-
-.step-desc {
-    color: #666;
-    font-size: 1rem;
-    max-width: 250px;
-    margin: 0 auto;
 }

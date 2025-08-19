@@ -11,7 +11,7 @@ function CTASection() {
                 <p className="cta-subtitle">
                     Upload your documents now and start asking AI-powered questions instantly!
                 </p>
-                <Button as={Link} to="/upload" variant="light" size="lg" className="cta-btn">
+                <Button as={Link} to="/login" variant="light" size="lg" className="hero-buttons">
                     🚀 Get Started
                 </Button>
             </Container>

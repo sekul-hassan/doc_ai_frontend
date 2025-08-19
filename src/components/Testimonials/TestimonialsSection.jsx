@@ -27,7 +27,7 @@ function TestimonialsSection() {
                         <Col md={4} key={index} className="mb-4">
                             <Card className="testimonial-card h-100">
                                 <Card.Body>
-                                    <Card.Text>"{t.text}"</Card.Text>
+                                    <Card.Text className="description">"{t.text}"</Card.Text>
                                     <Card.Footer className="text-end">
                                         <strong>- {t.name}</strong>
                                     </Card.Footer>

@@ -1,7 +1,7 @@
 .cta-section {
     width: 100%;
     padding: 80px 20px;
-    background-color: #0d6efd; /* Solid blue background */
+    background-color: var(--color1);
     text-align: center;
     color: #fff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -9,8 +9,11 @@
 
 .cta-title {
     font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: black;
+    text-transform: uppercase;
+    font-family: Raleway, serif;
     font-weight: 700;
-    margin-bottom: 1rem;
 }
 
 .cta-subtitle {
@@ -20,16 +23,5 @@
     margin-left: auto;
     margin-right: auto;
     line-height: 1.5;
-}
-
-.cta-btn {
-    font-weight: 600;
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.cta-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    font-family: Montserrat, serif;
 }

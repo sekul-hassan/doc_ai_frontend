@@ -14,8 +14,8 @@ function FeaturesSection() {
                     <Col md={4} className="mb-4">
                         <Card className="feature-card text-center">
                             <Card.Body>
-                                <Card.Title>⚡ Fast Answers</Card.Title>
-                                <Card.Text>
+                                <Card.Title className="subtitle text-dark">⚡ Fast Answers</Card.Title>
+                                <Card.Text className="description text-dark">
                                     Get AI-powered answers from your documents in seconds.
                                 </Card.Text>
                             </Card.Body>
@@ -24,8 +24,8 @@ function FeaturesSection() {
                     <Col md={4} className="mb-4">
                         <Card className="feature-card text-center">
                             <Card.Body>
-                                <Card.Title>📂 Easy Upload</Card.Title>
-                                <Card.Text>
+                                <Card.Title className="subtitle text-dark">📂 Easy Upload</Card.Title>
+                                <Card.Text className="description text-dark">
                                     Upload your files quickly and manage them effortlessly.
                                 </Card.Text>
                             </Card.Body>
@@ -34,8 +34,8 @@ function FeaturesSection() {
                     <Col md={4} className="mb-4">
                         <Card className="feature-card text-center">
                             <Card.Body>
-                                <Card.Title>🔒 Secure</Card.Title>
-                                <Card.Text>
+                                <Card.Title className="subtitle text-dark">🔒 Secure</Card.Title>
+                                <Card.Text className="description text-dark">
                                     Your documents are safe and private — AI only uses your content.
                                 </Card.Text>
                             </Card.Body>
