@@ -32,7 +32,7 @@ const Login = ({ onLogin }) => {
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label className="description">Email</Form.Label>
                             <Form.Control
                                 type="email"
                                 name="email"
@@ -43,7 +43,7 @@ const Login = ({ onLogin }) => {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label className="description">Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="password"

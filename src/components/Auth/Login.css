@@ -10,28 +10,33 @@
 }
 
 .login-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 10px;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
     color: #0d6efd;
+    text-transform: uppercase;
+    font-family: Raleway, serif;
+    font-weight: 700;
 }
 
 .login-subtitle {
     font-size: 1rem;
-    margin-bottom: 20px;
-    color: #555;
+    color: rgba(0,0,0,0.7);
+    font-family: Montserrat, serif;
+    font-weight: 700;
 }
 
 .login-btn {
-    background-color: #0d6efd;
+    background-color: var(--color1) !important;
     border: none;
     padding: 10px 0;
-    font-weight: 600;
+    text-transform: uppercase;
+    font-family: Montserrat, serif;
+    font-weight: 700;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .login-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
+    background-color: var(--color2) !important;
+    color: black !important;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }

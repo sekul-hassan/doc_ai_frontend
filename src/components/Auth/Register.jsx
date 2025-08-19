@@ -35,7 +35,7 @@ const Register = () => {
                     {success && <Alert variant="success">{success}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label className="description">Name</Form.Label>
                             <Form.Control
                                 name="name"
                                 value={form.name}
@@ -45,7 +45,7 @@ const Register = () => {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label className="description">Email</Form.Label>
                             <Form.Control
                                 type="email"
                                 name="email"
@@ -56,7 +56,7 @@ const Register = () => {
                             />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label className="description">Password</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="password"
