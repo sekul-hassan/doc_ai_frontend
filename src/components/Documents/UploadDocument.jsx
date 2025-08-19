@@ -10,6 +10,11 @@ const UploadDocument = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!file) {
+            setMessage("Please select a PDF or TXT file.");
+            return;
+        }
+
         const formData = new FormData();
         formData.append("document", file);
         formData.append("title", title);
@@ -19,32 +24,60 @@ const UploadDocument = () => {
             const res = await API.post("/documents/upload", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
-            setMessage(res.data.message);
+            setMessage(res.data.message || "Upload successful!");
+            setTitle("");
+            setContent("");
+            setFile(null);
+            alert("Upload successful!");
         } catch (err) {
             setMessage(err.response?.data?.error || "Upload failed");
+            alert("Failed to upload");
         }
     };
 
     return (
-        <Card className="p-4 shadow">
-            <h3>Upload Document</h3>
-            {message && <Alert variant="info">{message}</Alert>}
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Content</Form.Label>
-                    <Form.Control as="textarea" rows={3} value={content} onChange={(e) => setContent(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Choose File</Form.Label>
-                    <Form.Control type="file" onChange={(e) => setFile(e.target.files[0])} required />
-                </Form.Group>
-                <Button type="submit">Upload</Button>
-            </Form>
-        </Card>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
+            <Card className="p-4 shadow" style={{ width: "500px" }}>
+                <h3 className="mb-3 text-center">📂 Upload Document</h3>
+                {message && <Alert variant="info">{message}</Alert>}
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder="Enter document title"
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Content</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows={3}
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            placeholder="Enter document content/notes"
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Choose File (PDF / TXT)</Form.Label>
+                        <Form.Control
+                            type="file"
+                            accept=".pdf,.txt"
+                            onChange={(e) => setFile(e.target.files[0])}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Button type="submit" className="w-100">
+                        Upload
+                    </Button>
+                </Form>
+            </Card>
+        </div>
     );
 };
 

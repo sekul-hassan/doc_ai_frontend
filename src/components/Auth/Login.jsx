@@ -16,8 +16,10 @@ const Login = ({ onLogin }) => {
             localStorage.setItem("token", res.data.token);
             onLogin();
             setError("");
+            alert("Login successful!");
         } catch (err) {
             setError(err.response?.data?.error || "Login failed");
+            alert(err.response?.data?.error || "Failed to login");
         }
     };
 

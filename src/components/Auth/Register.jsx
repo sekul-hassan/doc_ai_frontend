@@ -16,9 +16,11 @@ const Register = () => {
             await API.post("/auth/register", form);
             setSuccess("Registration successful! Please login.");
             setError("");
-            setForm({ name: "", email: "", password: "" }); // Reset form
+            setForm({ name: "", email: "", password: "" });
+            alert("Registration successful! Please login.");
         } catch (err) {
             setError(err.response?.data?.error || "Registration failed");
+            alert(err.response?.data?.error || "Registration failed");
             setSuccess("");
         }
     };
