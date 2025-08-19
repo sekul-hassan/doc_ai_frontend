@@ -1,0 +1,54 @@
+:root {
+    --color1: #0ABAB5;
+    --color2: #56DFCF;
+    --color3: #ADEED9;
+    --color4: #FFEDF3;
+}
+
+.home-hero {
+    width: 100%;
+    background-size: cover;
+    background: url("../../../public/home_bg.jpg") no-repeat fixed center;
+    min-height: 50vh;
+    position: relative;
+    text-align: center;
+}
+.home-hero_overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.23);
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-family: Montserrat, serif;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: white;
+    font-family: Montserrat, serif;
+}
+
+.hero-buttons .hero-btn {
+    font-weight: 600;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    font-family: Roboto, serif;
+}
+
+.hero-buttons .hero-btn:last-child {
+    margin-right: 0;
+}
+
+.navBody{
+    background-color: var(--color1);
+}

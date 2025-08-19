@@ -1,0 +1,31 @@
+.features-section {
+    width: 100%;
+    padding: 80px 20px;
+    background-color: #f8f9fa; /* light gray background */
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.features-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #0d6efd;
+}
+
+.features-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: #555;
+}
+
+.feature-card {
+    border: none;
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}

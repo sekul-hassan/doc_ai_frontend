@@ -1,0 +1,40 @@
+.footer-section {
+    width: 100%;
+    padding: 50px 20px;
+    background-color: #0d6efd; /* Solid blue background */
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-section h5 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ffc107; /* Accent color on hover */
+}
+
+.footer-section hr {
+    border-color: rgba(255,255,255,0.2);
+}
+
+.footer-section p {
+    margin: 0;
+    font-size: 0.9rem;
+}

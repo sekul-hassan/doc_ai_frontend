@@ -1,0 +1,51 @@
+.how-it-works {
+    width: 100%;
+    padding: 80px 20px;
+    background-color: #fff;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.works-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #0d6efd;
+}
+
+.works-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: #555;
+}
+
+.step-col {
+    margin-bottom: 40px;
+}
+
+.step-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #0d6efd;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.step-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.step-desc {
+    color: #666;
+    font-size: 1rem;
+    max-width: 250px;
+    margin: 0 auto;
+}
