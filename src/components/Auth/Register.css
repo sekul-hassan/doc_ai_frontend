@@ -1,0 +1,37 @@
+.register-wrapper {
+    min-height: 80vh;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-card {
+    border-radius: 15px;
+    padding: 30px 20px;
+}
+
+.register-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #0d6efd;
+}
+
+.register-subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.register-btn {
+    background-color: #0d6efd;
+    border: none;
+    padding: 10px 0;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.register-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
