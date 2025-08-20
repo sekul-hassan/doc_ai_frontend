@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, Fragment} from "react";
 import { Container, Row, Col, Card, Button, Modal, Form, Alert } from "react-bootstrap";
 import API from "../../api";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
@@ -82,59 +82,62 @@ const UserDashboard = () => {
 
     return (
         <Container className="mt-4">
-            <h2>User Dashboard</h2>
+            <h2 className="subtitle text-dark">User Dashboard</h2>
             {message && <Alert variant="success">{message}</Alert>}
 
-            <Row className="mb-4">
+            <Row className="mb-4 description">
                 <Col>
-                    <table className="table table-striped table-hover">
+                    <table className="table ">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Content</th>
+                            {/*<th>#</th>*/}
+                            {/*<th>Title</th>*/}
+                            {/*<th>Content</th>*/}
                             <th>File</th>
-                            <th>Actions</th>
+                            {/*<th>Actions</th>*/}
                         </tr>
                         </thead>
                         <tbody>
-                        {documents.map((doc, idx) => (
-                            <tr key={doc.id}>
-                                <td>{idx + 1}</td>
-                                <td>{doc.title}</td>
-                                <td>{doc.content}</td>
-                                <td>
-                                    {doc.viewUrl ? (
-                                        <iframe
-                                            src={`${BACKEND_URL}${doc.viewUrl}`}
-                                            title={doc.fileName}
-                                            width="100%"
-                                            height="450"
-                                            style={{border: "1px solid #ccc"}}
-                                        />
-                                    ) : (
-                                        "No file"
-                                    )}
-                                </td>
-
-                                <td>
-                                    <Button
-                                        variant="primary"
-                                        size="sm"
-                                        onClick={() => handleEdit(doc)}
-                                        className="me-2"
-                                    >
-                                        Update
-                                    </Button>
-                                    <Button
-                                        variant="danger"
-                                        size="sm"
-                                        onClick={() => handleDelete(doc.id)}
-                                    >
-                                        Delete
-                                    </Button>
-                                </td>
-                            </tr>
+                        {documents.map((doc) => (
+                            <Fragment>
+                                <tr key={doc.id}>
+                                    {/*<td>{idx + 1}</td>*/}
+                                    {/*<td>{doc.title}</td>*/}
+                                    {/*<td>{doc.content}</td>*/}
+                                    <td>
+                                        {doc.viewUrl ? (
+                                            <iframe
+                                                src={`${BACKEND_URL}${doc.viewUrl}`}
+                                                title={doc.fileName}
+                                                width="100%"
+                                                height="450"
+                                                style={{border: "1px solid #ccc"}}
+                                            />
+                                        ) : (
+                                            "No file"
+                                        )}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <Button
+                                            variant="outline-success"
+                                            size="md"
+                                            onClick={() => handleEdit(doc)}
+                                            className="me-2"
+                                        >
+                                            Update
+                                        </Button>
+                                        <Button
+                                            variant="outline-danger"
+                                            size="md"
+                                            onClick={() => handleDelete(doc.id)}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </td>
+                                </tr>
+                            </Fragment>
                         ))}
                         </tbody>
 
@@ -143,15 +146,17 @@ const UserDashboard = () => {
             </Row>
 
 
-            <h3>Analytics (Messages per Month)</h3>
-            <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={analytics}>
-                    <XAxis dataKey="month"/>
-                    <YAxis/>
-                    <Tooltip/>
-                    <Bar dataKey="count" fill="#007bff"/>
-                </BarChart>
-            </ResponsiveContainer>
+            <Row className="my-4 py-3">
+                <h3 className="subtitle text-dark">Analytics (Messages per Month)</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={analytics}>
+                        <XAxis dataKey="month"/>
+                        <YAxis/>
+                        <Tooltip/>
+                        <Bar dataKey="count" fill="#007bff"/>
+                    </BarChart>
+                </ResponsiveContainer>
+            </Row>
 
             {/* Update Modal */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -161,8 +166,8 @@ const UserDashboard = () => {
                 <Modal.Body>
                     <Form onSubmit={handleUpdate}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <Form.Label>Title</Form.Label>
+                            <Form.Control value={title} onChange={(e) => setTitle(e.target.value)}/>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Content</Form.Label>
@@ -175,7 +180,7 @@ const UserDashboard = () => {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Choose New File</Form.Label>
-                            <Form.Control type="file" onChange={(e) => setFile(e.target.files[0])} />
+                            <Form.Control type="file" onChange={(e) => setFile(e.target.files[0])}/>
                         </Form.Group>
                         <Button type="submit">Update</Button>
                     </Form>

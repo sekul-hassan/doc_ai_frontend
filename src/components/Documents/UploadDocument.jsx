@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import API from "../../api";
+import {useNavigate} from "react-router-dom";
 
 const UploadDocument = () => {
+    const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -29,6 +31,7 @@ const UploadDocument = () => {
             setContent("");
             setFile(null);
             alert("Upload successful!");
+            navigate("/dashboard",{replace:true});
         } catch (err) {
             setMessage(err.response?.data?.error || "Upload failed");
             alert("Failed to upload");
@@ -38,7 +41,7 @@ const UploadDocument = () => {
     return (
         <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
             <Card className="p-4 shadow" style={{ width: "500px" }}>
-                <h3 className="mb-3 text-center">📂 Upload Document</h3>
+                <h3 className="mb-3 text-center subtitle text-dark">📂 Upload Document</h3>
                 {message && <Alert variant="info">{message}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
@@ -72,7 +75,7 @@ const UploadDocument = () => {
                         />
                     </Form.Group>
 
-                    <Button type="submit" className="w-100">
+                    <Button type="submit" variant="outline-success" className="w-100 fs-5 text-uppercase">
                         Upload
                     </Button>
                 </Form>

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Form, Button, Card, Alert, Row, Col } from "react-bootstrap";
 import API from "../../api";
 import "./Login.css";
+import {useNavigate} from "react-router-dom";
 
 const Login = ({ onLogin }) => {
     const [form, setForm] = useState({ email: "", password: "" });
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -16,6 +18,7 @@ const Login = ({ onLogin }) => {
             localStorage.setItem("token", res.data.token);
             onLogin();
             setError("");
+            navigate("/qa",{replace:true})
             alert("Login successful!");
         } catch (err) {
             setError(err.response?.data?.error || "Login failed");
