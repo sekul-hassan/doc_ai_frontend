@@ -1,66 +1,48 @@
-# Doc AI
+# Doc AI Frontend
 
 ## Project Requirements
 
-Before running the project, make sure the following tools are installed and configured:
+Before running the frontend, ensure the following are installed and running:
 
-1. **XAMPP** (for Apache & MySQL)
-2. **Node.js**
-3. **Git** (to clone the project)
-4. **Postman** (optional, for testing APIs)
-
-> If any of these are not installed, please install and configure them first. You can find installation guides online.
+1. **Node.js**
+2. **Git** (to clone this project)
+3. **Backend Server** (make sure the [Doc AI Backend](https://github.com/sekul-hassan/doc_ai_backend) is already running)
 
 ---
 
-## Database Setup
-
-1. Open the **XAMPP Control Panel**.
-2. Start **Apache** and **MySQL**.
-3. Open `http://localhost/phpmyadmin`.
-4. Create a new database named:
-
-   ```
-   doc_ai_app
-   ```
-
----
-
-## Backend Setup
+## Setup Instructions
 
 1. Open a terminal and navigate to your preferred directory.
-2. Clone the backend project repository:
+2. Clone the frontend repository:
 
    ```bash
-   git clone https://github.com/sekul-hassan/doc_ai_backend
+   git clone https://github.com/sekul-hassan/doc_ai_frontend
    ```
 3. Go into the project folder:
 
    ```bash
-   cd doc_ai_backend
+   cd doc_ai_frontend
    ```
 4. Install dependencies:
 
    ```bash
    npm install
    ```
-5. Start the backend server:
+5. Start the development server:
 
    ```bash
    npm run dev
    ```
 
-   The backend will now be running on **port 5000**.
+The frontend will now be running on **port 5173**.
 
 ---
 
-## Frontend Setup
+## Next Steps
 
-The frontend repository is available here:
-[Doc AI Frontend](https://github.com/sekul-hassan/doc_ai_frontend)
-
-Follow the instructions in the frontend repository to run the client.
+Once the frontend is running, you can continue using the application by accessing the UI in your browser and interacting with the backend APIs.
 
 ---
 
-**Thank you for checking out Doc AI!**
+✨ **Thank you for using Doc AI Frontend!**
+
