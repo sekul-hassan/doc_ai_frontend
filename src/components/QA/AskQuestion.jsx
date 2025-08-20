@@ -1,7 +1,7 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
-import {Button, Form, Spinner} from "react-bootstrap";
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { Button, Form, Spinner } from "react-bootstrap";
 import API from "../../api";
-import "./AskQuestion.css"; // custom styles
+import "./AskQuestion.css";
 
 const AskQuestion = () => {
     const [messages, setMessages] = useState([]);
@@ -10,57 +10,56 @@ const AskQuestion = () => {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const chatRef = useRef(null);
-    const isAtBottomRef = useRef(true);
+    const limit = 10;
 
-    // Load chat history (pagination)
+    // Load messages for a page
     const loadMessages = async (pageNum) => {
         try {
-            const res = await API.get(`/questions/list?page=${pageNum}&limit=10`);
-            const data = res.data.messages || []; // backend returns {questions: [], total, page, pages}
-            console.log(data);
+            const res = await API.get(`/questions/list?page=${pageNum}&limit=${limit}`);
+            const data = res.data.messages || [];
+            console.log(`Page ${pageNum} messages:`, data);
+
             if (data.length === 0) {
                 setHasMore(false);
                 return;
             }
 
-            // Prepare messages [{role, text}]
             const formatted = data
+                .reverse()
                 .map((q) => [
                     { role: "user", text: q.question },
                     { role: "bot", text: q.answer },
                 ])
                 .flat();
 
-            // Save scroll position before adding new messages
-            const prevScrollHeight = chatRef.current.scrollHeight;
-
-            setMessages((prev) => [...formatted.reverse(), ...prev]);
-
-            // After DOM updates, restore scroll position
-            setTimeout(() => {
-                const newScrollHeight = chatRef.current.scrollHeight;
-                chatRef.current.scrollTop = newScrollHeight - prevScrollHeight;
-            }, 0);
+            setMessages((prev) => {
+                const newMessages = [...formatted, ...prev];
+                console.log("Updated messages:", newMessages);
+                return newMessages;
+            });
         } catch (err) {
             console.error("Failed to load messages", err);
         }
     };
 
+    // Initial load
     useEffect(() => {
-        loadMessages(page).then(r => console.log(r));
+        loadMessages(page).then(() => {
+            if (chatRef.current) {
+                chatRef.current.scrollTop = chatRef.current.scrollHeight;
+            }
+        });
     }, [page]);
 
-    // Detect scroll position
+    // Scroll handler for infinite scroll
     const handleScroll = () => {
         const el = chatRef.current;
-        isAtBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 5;
-
         if (el.scrollTop === 0 && hasMore) {
             setPage((prev) => prev + 1);
         }
     };
 
-    // Send new question
+    // Submit question
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!question.trim()) return;
@@ -76,29 +75,25 @@ const AskQuestion = () => {
             setMessages((prev) => [...prev, botReply]);
         } catch (err) {
             const er = err.response?.data?.error || "Failed to load messages";
-            setMessages((prev) => [...prev, er]);
+            setMessages((prev) => [...prev, { role: "bot", text: er }]);
         } finally {
             setLoading(false);
         }
     };
 
-    // Auto-scroll to bottom when new messages are added
+    // Auto-scroll to bottom for new messages
     useEffect(() => {
-        if (isAtBottomRef.current && chatRef.current) {
+        if (chatRef.current) {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
     }, [messages, loading]);
 
     return (
         <Fragment>
-            <div className="text-center mt-2 title text-dark">
-                Your chat history
-            </div>
+            <div className="text-center mt-2 title text-dark">Your chat history</div>
             <div className="chat-container my-4 p-3">
                 <div className="chat-box" ref={chatRef} onScroll={handleScroll}>
-                    {hasMore && (
-                        <div className="loading-text">⬆️ Scroll up for older messages</div>
-                    )}
+                    {hasMore && <div className="loading-text">⬆️ Scroll up for older messages</div>}
                     {messages.map((msg, idx) => (
                         <div
                             key={idx}
@@ -109,11 +104,10 @@ const AskQuestion = () => {
                     ))}
                     {loading && (
                         <div className="chat-bubble bot">
-                            <Spinner animation="border" size="sm"/> Thinking...
+                            <Spinner animation="border" size="sm" /> Thinking...
                         </div>
                     )}
                 </div>
-
                 <Form className="chat-input" onSubmit={handleSubmit}>
                     <Form.Control
                         type="text"
