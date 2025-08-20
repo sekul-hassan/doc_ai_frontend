@@ -1,11 +1,12 @@
-import React, {useState, useEffect, Fragment} from "react";
-import { Container, Row, Col, Card, Button, Modal, Form, Alert } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Button, Modal, Form, Alert } from "react-bootstrap";
 import API from "../../api";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import BACKEND_URL from "../../url.js";
+import { fetchAnalyticsOnce, fetchDocumentsOnce, resetCache } from "../../cache/Cache.js";
 
 const UserDashboard = () => {
-    const [documents, setDocuments] = useState([]);
+    const [document, setDocument] = useState(null); // single document
     const [showModal, setShowModal] = useState(false);
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
@@ -13,52 +14,36 @@ const UserDashboard = () => {
     const [message, setMessage] = useState("");
     const [analytics, setAnalytics] = useState([]);
 
-    // Fetch documents
-    const fetchDocuments = async () => {
-        try {
-            const res = await API.get("/documents");
-            setDocuments(res.data);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    // Fetch analytics
-    const fetchAnalytics = async () => {
-        try {
-            const res = await API.get("/questions/analytics"); // new endpoint
-            setAnalytics(res.data);
-            console.log(res.data);
-        } catch (err) {
-            console.error(err);
-        }
+    const loadData = async () => {
+        const doc = await fetchDocumentsOnce();
+        const analyticsData = await fetchAnalyticsOnce();
+        setDocument(doc[0] || null); // pick the first document
+        setAnalytics(analyticsData);
     };
 
     useEffect(() => {
-        fetchDocuments();
-        fetchAnalytics();
+        loadData();
     }, []);
 
-    // Delete document
     const handleDelete = async () => {
         if (!window.confirm("Are you sure you want to delete this document?")) return;
         try {
             await API.delete("/documents/delete");
             setMessage("Document deleted successfully!");
-            fetchDocuments();
+            resetCache();
+            loadData(); // re-fetch after reset
         } catch (err) {
             console.error(err);
         }
     };
 
-    // Open modal for update
-    const handleEdit = (doc) => {
-        setTitle(doc.title);
-        setContent(doc.content);
+    const handleEdit = () => {
+        if (!document) return;
+        setTitle(document.title);
+        setContent(document.content);
         setShowModal(true);
     };
 
-    // Update document
     const handleUpdate = async (e) => {
         e.preventDefault();
         if (!file) return alert("Please select a file to upload.");
@@ -74,7 +59,8 @@ const UserDashboard = () => {
             });
             setShowModal(false);
             setMessage("Document updated successfully!");
-            fetchDocuments();
+            resetCache();
+            await loadData();
         } catch (err) {
             console.error(err);
         }
@@ -87,78 +73,46 @@ const UserDashboard = () => {
 
             <Row className="mb-4 description">
                 <Col>
-                    <table className="table ">
-                        <thead>
-                        <tr>
-                            {/*<th>#</th>*/}
-                            {/*<th>Title</th>*/}
-                            {/*<th>Content</th>*/}
-                            <th>File</th>
-                            {/*<th>Actions</th>*/}
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {documents.map((doc) => (
-                            <Fragment>
-                                <tr key={doc.id}>
-                                    {/*<td>{idx + 1}</td>*/}
-                                    {/*<td>{doc.title}</td>*/}
-                                    {/*<td>{doc.content}</td>*/}
-                                    <td>
-                                        {doc.viewUrl ? (
-                                            <iframe
-                                                src={`${BACKEND_URL}${doc.viewUrl}`}
-                                                title={doc.fileName}
-                                                width="100%"
-                                                height="450"
-                                                style={{border: "1px solid #ccc"}}
-                                            />
-                                        ) : (
-                                            "No file"
-                                        )}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <Button
-                                            variant="outline-success"
-                                            size="md"
-                                            onClick={() => handleEdit(doc)}
-                                            className="me-2"
-                                        >
-                                            Update
-                                        </Button>
-                                        <Button
-                                            variant="outline-danger"
-                                            size="md"
-                                            onClick={() => handleDelete(doc.id)}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </td>
-                                </tr>
-                            </Fragment>
-                        ))}
-                        </tbody>
-
-                    </table>
+                    {document ? (
+                        <>
+                            <iframe
+                                src={`${BACKEND_URL}${document.viewUrl}`}
+                                title={document.fileName}
+                                width="100%"
+                                height="450"
+                                style={{ border: "1px solid #ccc" }}
+                            />
+                            <div className="mt-2">
+                                <Button
+                                    variant="outline-success"
+                                    className="me-2"
+                                    onClick={handleEdit}
+                                >
+                                    Update
+                                </Button>
+                                <Button variant="outline-danger" onClick={handleDelete}>
+                                    Delete
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <p>No document available.</p>
+                    )}
                 </Col>
             </Row>
-
 
             <Row className="my-4 py-3">
                 <h3 className="subtitle text-dark">Analytics (Messages per Month)</h3>
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={analytics}>
-                        <XAxis dataKey="month"/>
-                        <YAxis/>
-                        <Tooltip/>
-                        <Bar dataKey="count" fill="#007bff"/>
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="count" fill="#007bff" />
                     </BarChart>
                 </ResponsiveContainer>
             </Row>
 
-            {/* Update Modal */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Update Document</Modal.Title>
@@ -166,8 +120,8 @@ const UserDashboard = () => {
                 <Modal.Body>
                     <Form onSubmit={handleUpdate}>
                         <Form.Group className="mb-3">
-                        <Form.Label>Title</Form.Label>
-                            <Form.Control value={title} onChange={(e) => setTitle(e.target.value)}/>
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Content</Form.Label>
@@ -180,7 +134,7 @@ const UserDashboard = () => {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Choose New File</Form.Label>
-                            <Form.Control type="file" onChange={(e) => setFile(e.target.files[0])}/>
+                            <Form.Control type="file" onChange={(e) => setFile(e.target.files[0])} />
                         </Form.Group>
                         <Button type="submit">Update</Button>
                     </Form>

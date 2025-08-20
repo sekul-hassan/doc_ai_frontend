@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Container } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
 import UploadDocument from "./components/Documents/UploadDocument";

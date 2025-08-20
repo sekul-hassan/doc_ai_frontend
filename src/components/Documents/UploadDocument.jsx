@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import API from "../../api";
 import {useNavigate} from "react-router-dom";
+import {resetCache} from "../../cache/Cache.js";
 
 const UploadDocument = () => {
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ const UploadDocument = () => {
             setTitle("");
             setContent("");
             setFile(null);
+            resetCache();
             alert("Upload successful!");
             navigate("/dashboard",{replace:true});
         } catch (err) {
