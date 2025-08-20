@@ -10,7 +10,6 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // 🔹 Access state from Redux
     const {token, loading, error } = useSelector((state) => state.auth);
 
     const handleChange = (e) =>
@@ -21,7 +20,6 @@ const Login = () => {
         dispatch(loginUser(form)); // ✅ Call Redux thunk
     };
 
-    // 🔹 Redirect after login success
     useEffect(() => {
         if (token) {
             navigate("/qa", { replace: true });

@@ -10,6 +10,7 @@ const UploadDocument = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +18,7 @@ const UploadDocument = () => {
             setMessage("Please select a PDF or TXT file.");
             return;
         }
-
+        setLoading(true)
         const formData = new FormData();
         formData.append("document", file);
         formData.append("title", title);
@@ -32,9 +33,10 @@ const UploadDocument = () => {
             setContent("");
             setFile(null);
             resetCache();
-            alert("Upload successful!");
+            setLoading(false)
             navigate("/dashboard",{replace:true});
         } catch (err) {
+            setLoading(false)
             setMessage(err.response?.data?.error || "Upload failed");
             alert("Failed to upload");
         }
@@ -77,7 +79,7 @@ const UploadDocument = () => {
                         />
                     </Form.Group>
 
-                    <Button type="submit" variant="outline-success" className="w-100 fs-5 text-uppercase">
+                    <Button type="submit" variant="outline-success" className="w-100 fs-5 text-uppercase" disabled={loading}>
                         Upload
                     </Button>
                 </Form>

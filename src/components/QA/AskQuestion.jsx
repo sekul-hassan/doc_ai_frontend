@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import API from "../../api";
 import "./AskQuestion.css";
-import { fetchMessagesOnce, appendMessageToCache, resetMessagesCache } from "../../cache/MessagesCache";
+import { fetchMessagesOnce, appendMessageToCache } from "../../cache/MessagesCache";
 
 const AskQuestion = () => {
     const [messages, setMessages] = useState([]);

@@ -6,7 +6,7 @@ import BACKEND_URL from "../../url.js";
 import { fetchAnalyticsOnce, fetchDocumentsOnce, resetCache } from "../../cache/Cache.js";
 
 const UserDashboard = () => {
-    const [document, setDocument] = useState(null); // single document
+    const [document, setDocument] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [file, setFile] = useState(null);
     const [title, setTitle] = useState("");
@@ -17,7 +17,7 @@ const UserDashboard = () => {
     const loadData = async () => {
         const doc = await fetchDocumentsOnce();
         const analyticsData = await fetchAnalyticsOnce();
-        setDocument(doc[0] || null); // pick the first document
+        setDocument(doc[0] || null);
         setAnalytics(analyticsData);
     };
 

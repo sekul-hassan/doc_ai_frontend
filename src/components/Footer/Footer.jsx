@@ -26,9 +26,9 @@ function Footer() {
                     <Col md={4} className="mb-3">
                         <h5 className="subtitle">Follow Us</h5>
                         <ul className="footer-links">
-                            <li className="subtitle"><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></li>
-                            <li className="subtitle"><a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter</a></li>
-                            <li className="subtitle"><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
+                            <li className="subtitle"><a href="https://facebook.com/sekul.hassan" target="_blank" rel="noreferrer">Facebook</a></li>
+                            <li className="subtitle"><a href="https://twitter.com/sekul-hassan" target="_blank" rel="noreferrer">Twitter</a></li>
+                            <li className="subtitle"><a href="https://linkedin.com/in/sekul-hassan" target="_blank" rel="noreferrer">LinkedIn</a></li>
                         </ul>
                     </Col>
                 </Row>

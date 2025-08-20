@@ -2,25 +2,30 @@ import React, { useState } from "react";
 import { Form, Button, Card, Alert, Row, Col } from "react-bootstrap";
 import API from "../../api";
 import "./Register.css";
+import {useNavigate} from "react-router-dom";
 
 const Register = () => {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             await API.post("/auth/register", form);
             setSuccess("Registration successful! Please login.");
             setError("");
             setForm({ name: "", email: "", password: "" });
-            alert("Registration successful! Please login.");
+            navigate("/login",{replace:true})
+            setLoading(false)
         } catch (err) {
+            setLoading(false)
             setError(err.response?.data?.error || "Registration failed");
-            alert(err.response?.data?.error || "Registration failed");
             setSuccess("");
         }
     };
@@ -66,7 +71,7 @@ const Register = () => {
                                 required
                             />
                         </Form.Group>
-                        <Button type="submit" className="register-btn w-100">
+                        <Button type="submit" className="register-btn w-100" disabled={loading}>
                             Register
                         </Button>
                     </Form>

@@ -3,7 +3,6 @@ let cachedPage = 1;
 let cachedHasMore = true;
 
 export const fetchMessagesOnce = async (pageNum, limit, fetchFn) => {
-    // If page already fetched
     if (pageNum < cachedPage) {
         return {
             messages: cachedMessages,
@@ -31,10 +30,4 @@ export const fetchMessagesOnce = async (pageNum, limit, fetchFn) => {
 
 export const appendMessageToCache = (msg) => {
     cachedMessages = [...cachedMessages, msg];
-};
-
-export const resetMessagesCache = () => {
-    cachedMessages = [];
-    cachedPage = 1;
-    cachedHasMore = true;
 };
