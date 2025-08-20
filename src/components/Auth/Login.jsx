@@ -1,30 +1,32 @@
-import React, { useState } from "react";
-import { Form, Button, Card, Alert, Row, Col } from "react-bootstrap";
-import API from "../../api";
+import React, { useState, useEffect } from "react";
+import { Form, Button, Card, Alert, Row, Col, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../redux/authSlice";
 import "./Login.css";
-import {useNavigate} from "react-router-dom";
 
-const Login = ({ onLogin }) => {
+const Login = () => {
     const [form, setForm] = useState({ email: "", password: "" });
-    const [error, setError] = useState("");
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+    // 🔹 Access state from Redux
+    const {token, loading, error } = useSelector((state) => state.auth);
 
-    const handleSubmit = async (e) => {
+    const handleChange = (e) =>
+        setForm({ ...form, [e.target.name]: e.target.value });
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            const res = await API.post("/auth/login", form);
-            localStorage.setItem("token", res.data.token);
-            onLogin();
-            setError("");
-            navigate("/qa",{replace:true})
-            alert("Login successful!");
-        } catch (err) {
-            setError(err.response?.data?.error || "Login failed");
-            alert(err.response?.data?.error || "Failed to login");
-        }
+        dispatch(loginUser(form)); // ✅ Call Redux thunk
     };
+
+    // 🔹 Redirect after login success
+    useEffect(() => {
+        if (token) {
+            navigate("/qa", { replace: true });
+        }
+    }, [token, navigate]);
 
     return (
         <Row className="login-wrapper justify-content-center align-items-center">
@@ -32,7 +34,9 @@ const Login = ({ onLogin }) => {
                 <Card className="login-card shadow p-4">
                     <h2 className="login-title">Welcome Back!</h2>
                     <p className="login-subtitle">Sign in to access your account</p>
+
                     {error && <Alert variant="danger">{error}</Alert>}
+
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label className="description">Email</Form.Label>
@@ -56,8 +60,9 @@ const Login = ({ onLogin }) => {
                                 required
                             />
                         </Form.Group>
-                        <Button type="submit" className="login-btn w-100">
-                            Login
+
+                        <Button type="submit" className="login-btn w-100" disabled={loading}>
+                            {loading ? <Spinner animation="border" size="sm" /> : "Login"}
                         </Button>
                     </Form>
                 </Card>

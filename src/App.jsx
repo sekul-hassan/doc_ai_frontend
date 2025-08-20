@@ -13,23 +13,17 @@ import UserDashboard from "./components/Dashboard/UserDashboard.jsx";
 import Protected from "./routes/Protected.jsx";
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setIsLoggedIn(false);
-    };
 
     return (
         <BrowserRouter>
-            <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+            <NavBar/>
             <Routes>
                 <Route path="/" element={<HomePage/>} />
-                <Route path="/login" element={<Login onLogin={() => setIsLoggedIn(true)} />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/qa" element={<Protected isLoggedIn={isLoggedIn} element={<AskQuestion />} />} />
-                <Route path="/upload" element={<Protected isLoggedIn={isLoggedIn} element={<UploadDocument />} />}/>
-                <Route path="/dashboard" element={<Protected isLoggedIn={isLoggedIn} element={<UserDashboard />} />}/>
+                <Route path="/qa" element={<Protected element={<AskQuestion />} />} />
+                <Route path="/upload" element={<Protected element={<UploadDocument />} />}/>
+                <Route path="/dashboard" element={<Protected element={<UserDashboard />} />}/>
             </Routes>
             <Footer/>
         </BrowserRouter>
